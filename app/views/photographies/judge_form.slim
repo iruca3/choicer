@@ -1,0 +1,8 @@
+| 点数つけるページ
+= image_tag @photography.image_url
+
+= link_to 'にっこり', judge_photography_path( point: 4 ), method: :post
+= link_to 'ふつう', judge_photography_path( point: 3 ), method: :post
+= link_to 'びみょう', judge_photography_path( point: 2 ), method: :post
+= link_to 'さいあく', judge_photography_path( point: 1 ), method: :post
+

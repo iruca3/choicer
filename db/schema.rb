@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141229155815) do
+ActiveRecord::Schema.define(version: 20141229165940) do
 
   create_table "genres", force: true do |t|
     t.string   "name",       null: false
@@ -43,8 +43,8 @@ ActiveRecord::Schema.define(version: 20141229155815) do
     t.datetime "updated_at"
   end
 
-  add_index "points", ["photography_id", "user_id"], name: "index_points_on_photography_id_and_user_id", using: :btree
   add_index "points", ["photography_id"], name: "index_points_on_photography_id", using: :btree
+  add_index "points", ["user_id", "photography_id"], name: "index_points_on_user_id_and_photography_id", unique: true, using: :btree
 
   create_table "system_configs", force: true do |t|
     t.string   "twitter_consumer_key"

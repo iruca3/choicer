@@ -27,6 +27,6 @@ class Photography < ActiveRecord::Base
   end
 
   def my_rank( user )
-    
+    1   
   end
 end
