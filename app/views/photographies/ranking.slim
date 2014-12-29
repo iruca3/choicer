@@ -1,0 +1,9 @@
+h1 ランキング
+
+ul
+  - i = 0
+  - Photography.get_ranking.each do |photo|
+    - i += 1
+    li 
+      | #{ i }位
+      = image_tag photo.image_url

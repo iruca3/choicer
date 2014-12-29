@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   get '/photography/judge_form' => 'photographies#judge_form', as: :judge_photography_page
   post '/photography/judge/:point' => 'photographies#judge', as: :judge_photography
 
+  get '/photography/ranking' => 'photographies#ranking', as: :photography_ranking
+
 end

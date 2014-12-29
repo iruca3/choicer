@@ -19,6 +19,11 @@ class Photography < ActiveRecord::Base
 
   sorted_set :rank, global: true
 
+  def self.get_ranking
+    photo = Photography.first
+    Photography.where( id: photo.rank.members.reverse.slice( 0, 20 ) )
+  end
+
   def global_rank
     rank[ self.id ] = self.points.pluck( :value ).inject( :+ ) if rank.revrank( self.id ).nil?
     score = rank.score( self.id )
