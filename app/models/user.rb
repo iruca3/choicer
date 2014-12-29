@@ -12,7 +12,10 @@
 #
 
 class User < ActiveRecord::Base
+  include Redis::Objects
   has_many :points
+
+  list :compare_list
 
   def user_hash
     Digest::SHA1.hexdigest( 'choicer_' + self.id.to_s + '_' + self.provider + '_' + self.sns_id )

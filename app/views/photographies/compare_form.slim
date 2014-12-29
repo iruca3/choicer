@@ -1,0 +1,5 @@
+| 比較ページ
+= link_to photography_compare_path( id: @target_new_photo.id ), method: :post do
+  = image_tag @target_new_photo.image_url
+= link_to photography_compare_path( id: @compared_photo.id ), method: :post do
+  = image_tag @compared_photo.image_url

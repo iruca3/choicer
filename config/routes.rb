@@ -13,4 +13,7 @@ Rails.application.routes.draw do
 
   get '/photography/ranking' => 'photographies#ranking', as: :photography_ranking
 
+  get '/photography/compare_form' => 'photographies#compare_form', as: :photography_compare_page
+  post '/photography/compare' => 'photographies#compare', as: :photography_compare
+
 end

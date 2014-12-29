@@ -32,6 +32,14 @@ class Photography < ActiveRecord::Base
   end
 
   def my_rank( user )
-    1   
+    photo_id_list = user.compare_list.to_a
+    rank = 0
+    photo_id_list.each do |pid|
+      rank += 1
+      if pid.to_i == self.id
+        return rank
+      end
+    end
+    rank
   end
 end

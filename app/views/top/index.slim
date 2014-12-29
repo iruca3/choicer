@@ -4,9 +4,10 @@ ul
   - @current_user.points.order( 'id DESC' ).limit( 20 ).reverse.each do |pt|
     li
       = image_tag pt.photography.image_url
-      = pt.photography.my_rank( @current_user )
+      = pt.photography.global_rank
       | 位
       br
-      = pt.photography.global_rank
+      = pt.photography.my_rank( @current_user )
+      | 位
 
 = render 'shared/footer'

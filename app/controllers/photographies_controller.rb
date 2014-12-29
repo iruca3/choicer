@@ -29,7 +29,83 @@ class PhotographiesController < ApplicationController
     end
   end
 
+  def compare_form
+    redirect_to '/' and return if Photography.count <= 1
+    if current_user.compare_list.length <= 0
+      target_new_photo_id = Photography.all.pluck( :id ).shuffle.first
+      while 1
+        compared_photo_id = Photography.all.pluck( :id ).shuffle.first
+        break if compared_photo_id != target_new_photo_id
+      end
+    else
+      target_new_photo_id = Photography.where.not( id: current_user.compare_list.to_a ).pluck( :id ).shuffle.first
+      compared_photo_id = get_binary_search_user_photo[:photo_id]
+      if target_new_photo_id == compared_photo_id || target_new_photo_id.nil?
+        render text: '比較する写真がありません。' and return
+      end
+    end
+    @target_new_photo = Photography.where( id: target_new_photo_id ).first
+    @compared_photo = Photography.where( id: compared_photo_id ).first
+
+    session[:compare_info] = ''
+    session[:target_photo_id] = @target_new_photo.id
+    session[:compared_photo_id] = @compared_photo.id
+  end
+
+  def compare
+    @target_new_photo = Photography.where( id: session[:target_photo_id] ).first
+    @compared_photo = Photography.where( id: session[:compared_photo_id] ).first
+    redirect_to '/' and return if @target_new_photo.nil? || @compared_photo.nil?
+
+    @choiced_photo = @target_new_photo if params[:id].to_i == @target_new_photo.id
+    @choiced_photo = @compared_photo if params[:id].to_i == @compared_photo.id
+    redirect_to '/' and return if @choiced_photo.nil?
+
+    if current_user.compare_list.length <= 0
+      current_user.compare_list << @choiced_photo.id
+      if @choiced_photo.id == @target_new_photo.id
+        current_user.compare_list << @compared_photo.id
+      else
+        current_user.compare_list << @target_new_photo.id
+      end
+    else
+      # 二分探索で決定します。
+      compare_info = session[:compare_info]
+      session[:compare_info] += ( @choiced_photo.id == @target_new_photo.id ? 'o' : 'x' )
+      bin_search = get_binary_search_user_photo
+      if bin_search[:finished] 
+        current_user.compare_list.insert( ( @choiced_photo.id == @target_new_photo.id ? 'before' : 'after' ), @compared_photo.id.to_s, @target_new_photo.id )
+        session[:compare_info] = ''
+        render text: '2分探索完了' and return
+      else
+        compared_photo_id = bin_search[:photo_id]
+        @compared_photo = Photography.where( id: compared_photo_id ).first
+        session[:compared_photo_id] = @compared_photo.id
+        render 'compare_form' and return
+      end
+    end
+  end
+
   private
+
+  def get_binary_search_user_photo
+    compare_info = session[:compare_info]
+    user_ranking = current_user.compare_list.to_a
+    low_id = 0
+    high_id = user_ranking.length - 1
+    num = compare_info.length
+    ( 0..compare_info.to_s.length - 1 ).each do |i|
+      mid_id = ( ( low_id + high_id ) / 2 ).floor
+      if compare_info[i,1] == 'o'
+        high_id = mid_id - 1
+      elsif compare_info[i,1] == 'x'
+        low_id = mid_id + 1
+      end
+    end
+    mid_id = ( ( low_id + high_id ) / 2 ).floor
+    return { photo_id: user_ranking[ mid_id  ], finished: ( low_id > mid_id || high_id < mid_id ) }
+  end
+
   def photography_params
     params.require( :photography ).permit(
       :image, :remote_image_url
