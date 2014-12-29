@@ -71,3 +71,4 @@ gem 'twitter'
 gem 'koala'
 
 gem 'carrierwave'
+gem 'rmagick'

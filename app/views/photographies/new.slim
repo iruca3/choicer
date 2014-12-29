@@ -1,0 +1,19 @@
+h1 画像のアップロード
+
+h2 URLから追加
+
+- @photography = Photography.new
+= form_for @photography do |f|
+  = f.text_field :remote_image_url, placeholder: '画像のURLを入力してください。'
+  = f.submit 'アップロード'
+
+h2 ファイルから追加
+
+= form_for @photography do |f|
+  = f.file_field :image
+  = f.submit 'アップロード'
+
+h2 Tumblerから追加
+
+| 作りかけ
+

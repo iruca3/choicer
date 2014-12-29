@@ -10,4 +10,23 @@
 #
 
 class Photography < ActiveRecord::Base
+  include Redis::Objects
+  mount_uploader :image, ImageUploader
+  belongs_to :user
+  has_many :points
+  has_many :photography_genres
+  has_many :genres, through: :photography_genres
+
+  sorted_set :rank, global: true
+
+  def global_rank
+    rank[ self.id ] = self.points.pluck( :value ).inject( :+ ) if rank.revrank( self.id ).nil?
+    score = rank.score( self.id )
+    more_score_num = rank.range_size( score + 1, Float::INFINITY )
+    more_score_num + 1
+  end
+
+  def my_rank( user )
+    
+  end
 end

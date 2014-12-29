@@ -10,4 +10,8 @@
 #
 
 class UserGenreRanking < ActiveRecord::Base
+  belongs_to :user
+  belongs_to :genre
+
+  list :ranking
 end

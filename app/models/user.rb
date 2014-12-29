@@ -12,6 +12,7 @@
 #
 
 class User < ActiveRecord::Base
+  has_many :points
 
   def user_hash
     Digest::SHA1.hexdigest( 'choicer_' + self.id.to_s + '_' + self.provider + '_' + self.sns_id )

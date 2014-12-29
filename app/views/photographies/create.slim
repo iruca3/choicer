@@ -1,0 +1,5 @@
+- if @photo.errors.count <= 0
+  | 追加しました。
+  = image_tag @photo.image_url
+- else
+  = raw @photo.errors.to_a.join( '<br>' )

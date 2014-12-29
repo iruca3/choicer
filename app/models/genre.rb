@@ -9,4 +9,6 @@
 #
 
 class Genre < ActiveRecord::Base
+  has_many :photography_genres
+  has_many :photography, through: :photography_genres
 end

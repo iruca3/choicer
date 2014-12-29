@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   root 'top#index'
 
   get '/top/failure' => 'top#failure'
+  resources :photographies
 
 end
