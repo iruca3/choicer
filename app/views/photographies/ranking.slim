@@ -1,9 +1,10 @@
-h1 ランキング
+h1 総合ランキング
 
-ul
+ul.global-ranking.ranking
   - i = 0
   - Photography.get_ranking.each do |photo|
     - i += 1
     li 
-      | #{ i }位
-      = image_tag photo.image_url
+      span.rank
+        | #{ i }位
+      = image_tag photo.image_url, height: 100
