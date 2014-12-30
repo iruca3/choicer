@@ -1,5 +1,7 @@
-div
-  = link_to '比較', photography_compare_page_path
-  = link_to '点数', judge_photography_page_path
-  = link_to '結果', photography_ranking_path
-  = link_to '追加', new_photography_path
+footer
+  .button-container
+    = link_to '表紙', root_path
+    = link_to '比較', photography_compare_page_path, class: 'red'
+    = link_to '点数', judge_photography_page_path, class: 'orange'
+    = link_to '結果', photography_ranking_path, class: 'green'
+    = link_to '追加', new_photography_path

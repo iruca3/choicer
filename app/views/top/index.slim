@@ -1,13 +1,30 @@
 h1 直近のチェック
 
-ul
+ul.ranking
   - @current_user.points.order( 'id DESC' ).limit( 20 ).reverse.each do |pt|
     li
-      = image_tag pt.photography.image_url
-      = pt.photography.global_rank
-      | 位
-      br
-      = pt.photography.my_rank( @current_user )
-      | 位
+      .image-container
+        = image_tag pt.photography.image_url, height: 100
+      .info
+        .record
+          span.label 全体ランキング
+          = pt.photography.global_rank
+          | 位
+        .record
+          span.label マイランキング
+          = pt.photography.my_rank( @current_user )
+          | 位
 
-= render 'shared/footer'
+h1 マイランキング
+
+ul.my-ranking
+  - i = 0
+  - @current_user.compare_list.to_a.each do |pid|
+    - pid = pid.to_i
+    - i += 1
+    li
+      span.rank
+      span.rank-string class=( i < 10 ? '' : 'small' )
+        = i.to_s + '位'
+      = image_tag Photography.where( id: pid ).first.image_url, height: 100
+

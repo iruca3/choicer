@@ -1,0 +1,76 @@
+@import 'compass'
+
+*
+  box-sizing: border-box
+
+.container
+  h1
+    display: inline-block
+    position: relative
+    width: 100%
+    background-color: rgb( 109, 110, 124 )
+    color: white
+    padding: 4px 10px
+    padding-left: 24px
+    height: 30px
+    margin-bottom: 6px
+    &:before
+      width: 0
+      height: 0
+      content: ""
+      position: absolute
+      left: 0
+      top: 0
+      border: 15px solid transparent
+      border-left: 15px solid white
+
+  ul.ranking
+    li
+      &:nth-child(even)
+        background-color: rgb(213, 213, 213)
+      .image-container
+        display: inline-block
+        width: 100px
+        text-align: center
+      .info
+        display: inline-block
+        .record
+          font-size: 14px
+          line-height: 24px
+          span.label
+            font-size: 12px
+            background-color: black
+            color: white
+            padding: 3px 10px
+            @include border-radius( 10px )
+            margin-right: 3px
+
+  ul.my-ranking
+    li
+      width: 49%
+      display: inline-block
+      text-align: center
+      position: relative
+      span.rank-string
+        position: absolute
+        left: 0
+        top: 4px
+        @include transform( rotate( -45deg ) )
+        font-weight: bold
+        color: white
+        &.small
+          font-size: 14px
+      span.rank
+        position: absolute
+        left: 0
+        top: 0
+        &:after
+          content: ""
+          position: absolute
+          left: 0
+          top: 0
+          padding-left: 0
+          border: 20px solid transparent
+          border-top: 20px solid rgb( 228, 135, 135 )
+          border-left: 20px solid rgb( 228, 135, 135 )
+

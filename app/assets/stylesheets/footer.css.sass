@@ -1,0 +1,33 @@
+@import 'compass'
+
+body
+  padding-bottom: 60px !important
+
+footer
+  position: fixed
+  bottom: 0
+  height: 60px
+  width: 100%
+  background-color: rgb(182, 182, 182)
+  .button-container
+    a
+      display: inline-block
+      height: 60px
+      padding: 4px
+      width: 20%
+      text-align: center
+      background-color: white
+      padding-top: 19px
+      font-size: 16px
+      border: 1px solid rgb( 199, 199, 199 )
+      text-decoration: none
+      @include border-radius( 10px )
+      &.red
+        background-color: rgb(194, 109, 109)
+        color: white
+      &.orange
+        background-color: rgb(199, 121, 88)
+        color: white
+      &.green
+        background-color: rgb(120, 187, 141)
+        color: white
