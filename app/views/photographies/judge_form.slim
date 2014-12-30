@@ -1,8 +1,21 @@
-| 点数つけるページ
-= image_tag @photography.image_url
+h1 写真を評価しよう
 
-= link_to 'にっこり', judge_photography_path( point: 4 ), method: :post
-= link_to 'ふつう', judge_photography_path( point: 3 ), method: :post
-= link_to 'びみょう', judge_photography_path( point: 2 ), method: :post
-= link_to 'さいあく', judge_photography_path( point: 1 ), method: :post
+= image_tag @photography.image_url, width: '100%'
 
+.grade-button-container
+  = link_to '(๑′ᴗ‵๑)', judge_photography_path( point: 4 ), method: :post, class: 'best'
+  = link_to '(´・_・｀)', judge_photography_path( point: 3 ), method: :post, class: 'normal'
+  = link_to '(o´⌓`o)', judge_photography_path( point: 2 ), method: :post, class: 'bad'
+  = link_to '(◞‸◟)', judge_photography_path( point: 1 ), method: :post, class: 'too-bad'
+.description
+  | ↑
+  br
+  | 写真を評価しろ！
+
+coffee:
+  setInterval( ->
+    if parseInt( $('.description').css( 'opacity' ) ) == 0
+      $('.description').transition( { opacity: 1 }, 200 )
+    else
+      $('.description').transition( { opacity: 0 }, 200 )
+  , 500 )
