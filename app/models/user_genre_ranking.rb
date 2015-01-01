@@ -10,6 +10,7 @@
 #
 
 class UserGenreRanking < ActiveRecord::Base
+  include Redis::Objects
   belongs_to :user
   belongs_to :genre
 

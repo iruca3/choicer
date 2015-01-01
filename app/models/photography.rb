@@ -9,8 +9,6 @@
 #  updated_at :datetime
 #
 
-require 'redis/objects'
-
 class Photography < ActiveRecord::Base
   include Redis::Objects
   mount_uploader :image, ImageUploader

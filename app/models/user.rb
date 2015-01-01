@@ -11,8 +11,6 @@
 #  oauth_access_token_secret :string(255)
 #
 
-require 'redis/objects'
-
 class User < ActiveRecord::Base
   include Redis::Objects
   has_many :points
