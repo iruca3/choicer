@@ -76,8 +76,8 @@ GEM
       compass (>= 0.12.2)
     debugger-linecache (1.2.0)
     dotenv (1.0.2)
-    dotenv-rails (1.0.2)
-      dotenv (= 1.0.2)
+    dotenv-deployment (0.2.0)
+      dotenv (~> 1.0)
     draper (1.4.0)
       actionpack (>= 3.0)
       activemodel (>= 3.0)
@@ -284,7 +284,7 @@ DEPENDENCIES
   cocoon
   coffee-rails (~> 4.0.0)
   compass-rails
-  dotenv-rails
+  dotenv-deployment
   draper
   formtastic
   hiredis
