@@ -48,7 +48,8 @@ end
 
 gem 'active_record_query_trace'
 gem 'draper'
-gem 'dotenv-rails'
+gem 'dotenv-rails', :require => 'dotenv/rails-now'
+gem 'gem-that-requires-env-variables'
 gem 'formtastic'
 gem 'remotipart'
 gem 'cocoon'
