@@ -1,0 +1,8 @@
+.fukidashi-container
+  .fukidashi
+    = @info
+= image_tag 'message_photo.jpg', class: 'with-fukidashi'
+
+- if @return_to
+  javascript:
+    setTimeout( function() { location.href = '#{ escape_javascript( @return_to ) }'; }, 3000 );

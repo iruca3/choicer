@@ -11,20 +11,25 @@ class PhotographiesController < ApplicationController
     photography_ids = Photography.where.not( id: judged_photography_ids ).pluck( :id )
     @photography = Photography.where( id: photography_ids.shuffle.first ).first
     unless @photography
-      render text: '点数をつけていない写真がありません。' and return
+      @info = '点数をつけていない写真がありません。'
+      render '/message' and return
     end
     session[:photography_id] = @photography.id
   end
 
   def judge
-    render 'judge_form' and return unless session[:photography_id]
+    judge_form and render 'judge_form' and return unless session[:photography_id]
     @photography = Photography.where( id: session[:photography_id] ).first
-    render 'judge_form' and return unless @photography
+    session[:photography_id] = nil
+    judge_form and render 'judge_form' and return unless @photography
     @point = Point.new( user_id: current_user.id, photography_id: @photography.id, value: params[:point] )
     begin
       @point.save
+      @info = '点数をつけました。'
+      @return_to = '/photography/judge_form'
+      render '/message' and return
     rescue
-      render 'judge_form'
+      judge_form and render 'judge_form'
       return
     end
   end
@@ -41,7 +46,8 @@ class PhotographiesController < ApplicationController
       target_new_photo_id = Photography.where.not( id: current_user.compare_list.to_a ).pluck( :id ).shuffle.first
       compared_photo_id = get_binary_search_user_photo[:photo_id]
       if target_new_photo_id == compared_photo_id || target_new_photo_id.nil?
-        render text: '比較する写真がありません。' and return
+        @info = '比較する写真がありません。'
+        render '/message' and return
       end
     end
     @target_new_photo = Photography.where( id: target_new_photo_id ).first
@@ -76,7 +82,9 @@ class PhotographiesController < ApplicationController
       if bin_search[:finished] 
         current_user.compare_list.insert( ( @choiced_photo.id == @target_new_photo.id ? 'before' : 'after' ), @compared_photo.id.to_s, @target_new_photo.id )
         session[:compare_info] = ''
-        render text: '2分探索完了' and return
+        @info = '好みがより明確化しました。'
+        @return_to = '/photography/compare_form'
+        render '/message' and return
       else
         compared_photo_id = bin_search[:photo_id]
         @compared_photo = Photography.where( id: compared_photo_id ).first

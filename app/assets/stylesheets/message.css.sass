@@ -1,0 +1,48 @@
+.fukidashi-container
+  padding: 4px
+
+.fukidashi
+  position: relative
+  display: inline-block
+  padding: 4px 12px
+  width: 100%
+  min-width: 115px
+  color: #F6F6F6
+  line-height: 22px
+  text-align: center
+  background: #19283C
+  border-radius: 60px
+  z-index: 1
+
+.fukidashi:before
+  content: ""
+  position: absolute
+  bottom: -17px
+  left: 15px
+  margin-left: 0
+  display: block
+  width: 15px
+  height: 15px
+  background: #19283C
+  border-radius: 50%
+  z-index: 1
+
+.fukidashi:after
+  content: ""
+  position: absolute
+  bottom: -25px
+  left: 25px
+  margin-left: 0
+  display: block
+  width: 8px
+  height: 8px
+  background: #19283C
+  border-radius: 50%
+  z-index: 1
+
+.with-fukidashi
+  z-index: 0
+  height: 100%
+  position: absolute
+  top: 0
+  left: 0
