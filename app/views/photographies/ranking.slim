@@ -1,10 +1,14 @@
-h1 総合ランキング
+h1 マイランキング
 
-ul.global-ranking.ranking
+ul.my-ranking
   - i = 0
-  - Photography.get_ranking.each do |photo|
+  - photo_ids = []
+  - photo_ids = @current_user.compare_list.to_a if @current_user.compare_list
+  - photo_ids.each do |pid|
+    - pid = pid.to_i
     - i += 1
     li 
       span.rank
+      span.rank-string class=( i < 10 ? '' : 'small' )
         | #{ i }位
-      = image_tag photo.image_url, height: 100
+      = image_tag Photography.find( pid ).image_url( :thumb2x ), height: 100
