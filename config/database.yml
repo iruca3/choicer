@@ -51,6 +51,6 @@ test:
 #
 production:
   <<: *default
-  database: choicer_production
+  database: choicer
   username: choicer
   password: <%= ENV['CHOICER_DATABASE_PASSWORD'] %>
