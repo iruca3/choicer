@@ -48,7 +48,7 @@ end
 
 gem 'active_record_query_trace'
 gem 'draper'
-gem 'dotenv-rails', :groups => [ :development, :test ]
+gem 'dotenv-rails'
 gem 'formtastic'
 gem 'remotipart'
 gem 'cocoon'
