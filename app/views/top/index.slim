@@ -1,30 +1,22 @@
 h1 直近の比較
 
 ul.ranking
-  - @current_user.points.order( 'id DESC' ).limit( 20 ).reverse.each do |pt|
+  - CompareHistory.get_new_history( @current_user, 5 ).each do |photo_id_pair|
+    - photo1 = Photography.find( photo_id_pair[0].to_i )
+    - photo2 = Photography.find( photo_id_pair[1].to_i )
     li
-      .image-container
-        = image_tag pt.photography.image_url, height: 100
       .info
-        .record
-          span.label 全体ランキング
-          = pt.photography.global_rank
-          | 位
-        .record
-          span.label マイランキング
-          = pt.photography.my_rank( @current_user )
-          | 位
-
-h1 マイランキング
-
-ul.my-ranking
-  - i = 0
-  - @current_user.compare_list.to_a.each do |pid|
-    - pid = pid.to_i
-    - i += 1
-    li
-      span.rank
-      span.rank-string class=( i < 10 ? '' : 'small' )
-        = i.to_s + '位'
-      = image_tag Photography.where( id: pid ).first.image_url, height: 100
+        span.left
+          | 左がいい！
+        span.result
+          = CompareHistory.get_choose_count( photo_id_pair[0], photo_id_pair[1], photo_id_pair[0] )
+      .image-container
+        = image_tag photo1.image_url, height: 100
+      .image-container
+        = image_tag photo2.image_url, height: 100
+      .info
+        span.right
+          | 右がいい！
+        span.result
+          = CompareHistory.get_choose_count( photo_id_pair[0], photo_id_pair[1], photo_id_pair[1] )
 

@@ -12,4 +12,16 @@
 #
 
 class CompareHistory < ActiveRecord::Base
+  belongs_to :photography1, foreign_key: :photography1_id, class_name: 'Photography'
+  belongs_to :photography2, foreign_key: :photography2_id, class_name: 'Photography'
+
+  def self.get_new_history( user, num )
+    compared_list = []
+    compared_list = user.compare_list.to_a if user.compare_list
+    CompareHistory.where( 'photography1_id IN (?) AND photography2_id IN (?)', compared_list, compared_list ).pluck( :photography1_id, :photography2_id ).uniq
+  end
+
+  def self.get_choose_count( photo1_id, photo2_id, choose_id )
+    self.where( 'photography1_id IN (?) AND photography2_id IN (?)', photo1_id, photo2_id ).where( selected_photography_id: choose_id ).count
+  end
 end
