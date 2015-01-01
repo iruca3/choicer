@@ -89,6 +89,7 @@ class PhotographiesController < ApplicationController
   private
 
   def get_binary_search_user_photo
+    session[:compare_info] = [] unless session[:compare_info]
     compare_info = session[:compare_info]
     user_ranking = current_user.compare_list.to_a
     low_id = 0
