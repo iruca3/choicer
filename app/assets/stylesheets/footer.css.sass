@@ -5,10 +5,12 @@ body
 
 footer
   position: fixed
+  @include box-shadow( -1px -1px white )
+  @include box-shadow( 1px -1px white )
   bottom: 0
   height: 60px
   width: 100%
-  background-color: rgb(182, 182, 182)
+  background-color: transparent
   .button-container
     a
       display: inline-block
@@ -17,11 +19,16 @@ footer
       width: 25%
       text-align: center
       background-color: white
-      padding-top: 19px
       font-size: 16px
-      border: 1px solid rgb( 199, 199, 199 )
       text-decoration: none
-      @include border-radius( 10px )
+      border-right: 1px solid #777
+      &:last-child
+        border-right: 0
+      border-top: 1px solid #777
+      line-height: 72px
+      img
+        line-height: 0
+        width: 32px
       &.red
         background-color: rgb(194, 109, 109)
         color: white
