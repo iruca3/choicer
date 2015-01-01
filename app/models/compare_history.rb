@@ -22,6 +22,6 @@ class CompareHistory < ActiveRecord::Base
   end
 
   def self.get_choose_count( photo1_id, photo2_id, choose_id )
-    self.where( 'photography1_id IN (?) AND photography2_id IN (?)', photo1_id, photo2_id ).where( selected_photography_id: choose_id ).count
+    self.where( 'photography1_id IN (?) AND photography2_id IN (?)', [ photo1_id, photo2_id ], [ photo1_id, photo2_id ] ).where( selected_photography_id: choose_id ).count
   end
 end
