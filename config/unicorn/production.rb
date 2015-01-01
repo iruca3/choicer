@@ -2,7 +2,6 @@ app_path = '/var/www/app/choicer'
 app_shared_path = "#{app_path}/shared"
 
 worker_processes 1
-unicorn_port 7890
 
 working_directory "#{app_path}/current/"
 
