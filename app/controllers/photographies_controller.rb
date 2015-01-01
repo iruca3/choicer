@@ -35,7 +35,7 @@ class PhotographiesController < ApplicationController
   end
 
   def compare_form
-    redirect_to root_path and return if Photography.count <= 1
+    redirect_to root_url and return if Photography.count <= 1
     if current_user.compare_list.length <= 0
       target_new_photo_id = Photography.all.pluck( :id ).shuffle.first
       while 1
