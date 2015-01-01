@@ -35,7 +35,7 @@ class PhotographiesController < ApplicationController
   end
 
   def compare_form
-    redirect_to '/' and return if Photography.count <= 1
+    redirect_to root_path and return if Photography.count <= 1
     if current_user.compare_list.length <= 0
       target_new_photo_id = Photography.all.pluck( :id ).shuffle.first
       while 1
@@ -61,11 +61,11 @@ class PhotographiesController < ApplicationController
   def compare
     @target_new_photo = Photography.where( id: session[:target_photo_id] ).first
     @compared_photo = Photography.where( id: session[:compared_photo_id] ).first
-    redirect_to '/' and return if @target_new_photo.nil? || @compared_photo.nil?
+    redirect_to root_path and return if @target_new_photo.nil? || @compared_photo.nil?
 
     @choiced_photo = @target_new_photo if params[:id].to_i == @target_new_photo.id
     @choiced_photo = @compared_photo if params[:id].to_i == @compared_photo.id
-    redirect_to '/' and return if @choiced_photo.nil?
+    redirect_to root_path and return if @choiced_photo.nil?
 
     if current_user.compare_list.length <= 0
       current_user.compare_list << @choiced_photo.id
