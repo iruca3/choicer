@@ -78,6 +78,8 @@ class PhotographiesController < ApplicationController
       else
         current_user.compare_list << @target_new_photo.id
       end
+      compare_form() and render 'compare_form' and return
+
     else
       # 二分探索で決定します。
       compare_info = session[:compare_info]
