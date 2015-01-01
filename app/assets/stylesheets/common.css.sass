@@ -26,15 +26,53 @@
 
   ul.ranking
     li
-      &:nth-child(even)
-        background-color: rgb(213, 213, 213)
+      position: relative
+      text-align: center
+      border-bottom: 1px solid #eee
+      margin-bottom: 6px
       .image-container
         overflow: hidden
         display: inline-block
         width: 100px
         text-align: center
+        line-height: 0
       .info
         display: inline-block
+        position: absolute
+        &.left
+          left: 2px
+          span.result
+            left: 2px
+          span.choose
+            left: 9px
+        &.right
+          right: 2px
+          span.result
+            right: 2px
+          span.choose
+            right: 9px
+        span.choose
+          display: inline-block
+          position: absolute
+          top: 40px
+          font-size: 18px
+          color: red
+          line-height: 10px
+          span.small
+            font-size: 10px
+            display: inline-block
+        top: 0
+        height: 100%
+        span.caption
+          font-size: 11px
+        span.result
+          display: inline-block
+          position: absolute
+          bottom: 4px
+          font-size: 20px
+          span.append
+            font-size: 14px
+
         .record
           font-size: 14px
           line-height: 24px

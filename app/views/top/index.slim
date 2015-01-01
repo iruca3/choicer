@@ -5,18 +5,34 @@ ul.ranking
     - photo1 = Photography.find( photo_id_pair[0].to_i )
     - photo2 = Photography.find( photo_id_pair[1].to_i )
     li
-      .info
-        span.left
-          | 左がいい！
+      .info.left
+        span.caption
+          strong
+            | 左
+          | がいい
+        - if @current_user.compare_list.to_a.index( photo_id_pair[1].to_s ) > @current_user.compare_list.to_a.index( photo_id_pair[0].to_s )
+          span.choose
+            | YOU
+            span.small
+              | chosen
         span.result
           = CompareHistory.get_choose_count( photo_id_pair[0], photo_id_pair[1], photo_id_pair[0] )
+          span.append 人
       .image-container
-        = image_tag photo1.image_url, height: 100
+        = image_tag photo1.image_url( :thumb2x ), height: 100
       .image-container
-        = image_tag photo2.image_url, height: 100
-      .info
-        span.right
-          | 右がいい！
+        = image_tag photo2.image_url( :thumb2x ), height: 100
+      .info.right
+        span.caption
+          strong
+            | 右
+          | がいい
+        - if @current_user.compare_list.to_a.index( photo_id_pair[0].to_s ) > @current_user.compare_list.to_a.index( photo_id_pair[1].to_s )
+          span.choose
+            | YOU
+            span.small
+              | chosen
         span.result
           = CompareHistory.get_choose_count( photo_id_pair[0], photo_id_pair[1], photo_id_pair[1] )
+          span.append 人
 

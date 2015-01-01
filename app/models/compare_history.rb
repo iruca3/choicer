@@ -18,7 +18,7 @@ class CompareHistory < ActiveRecord::Base
   def self.get_new_history( user, num )
     compared_list = []
     compared_list = user.compare_list.to_a if user.compare_list
-    CompareHistory.where( 'photography1_id IN (?) AND photography2_id IN (?)', compared_list, compared_list ).pluck( :photography1_id, :photography2_id ).uniq
+    CompareHistory.where( 'photography1_id IN (?) AND photography2_id IN (?)', compared_list, compared_list ).order( 'created_at DESC' ).pluck( :photography1_id, :photography2_id ).uniq[ 0, num ]
   end
 
   def self.get_choose_count( photo1_id, photo2_id, choose_id )

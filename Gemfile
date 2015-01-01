@@ -71,4 +71,4 @@ gem 'twitter'
 gem 'koala'
 
 gem 'carrierwave'
-gem 'rmagick'
+gem 'rmagick', require: 'RMagick'
