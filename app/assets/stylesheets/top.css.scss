@@ -1,3 +1,17 @@
 // Place all the styles related to the Top controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@import 'compass';
+
+.btn {
+  margin: 4px;
+  display: block;
+  text-align: center;
+  background-color: rgb( 255, 205, 205 );
+  padding: 4px 10px;
+  text-decoration: none;
+  color: #333;
+  border: 1px solid #ccc;
+  @include border-radius( 4px );
+}
