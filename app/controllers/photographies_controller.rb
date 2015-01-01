@@ -67,6 +67,10 @@ class PhotographiesController < ApplicationController
     @choiced_photo = @compared_photo if params[:id].to_i == @compared_photo.id
     redirect_to root_path and return if @choiced_photo.nil?
 
+    if CompareHistory.where( user_id: current_user.id, photography1_id: @target_new_photo.id, photography2_id: @compared_photo.id ).count <= 0 && CompareHistory.where( user_id: current_user.id, photography1_id: @compared_photo.id, photography2_id: @target_new_photo.id ).count <= 0
+      CompareHistory.create( user_id: current_user.id, photography1_id: @target_new_photo.id, photography2_id: @compared_photo.id, selected_photography_id: @choiced_photo.id )
+    end
+
     if current_user.compare_list.length <= 0
       current_user.compare_list << @choiced_photo.id
       if @choiced_photo.id == @target_new_photo.id

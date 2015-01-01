@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141229165940) do
+ActiveRecord::Schema.define(version: 20150101144139) do
+
+  create_table "compare_histories", force: true do |t|
+    t.integer  "user_id",                 null: false
+    t.integer  "photography1_id",         null: false
+    t.integer  "photography2_id",         null: false
+    t.integer  "selected_photography_id", null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "genres", force: true do |t|
     t.string   "name",       null: false
