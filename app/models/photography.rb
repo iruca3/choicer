@@ -21,6 +21,7 @@ class Photography < ActiveRecord::Base
 
   def self.get_ranking
     photo = Photography.first
+    return [] unless photo
     Photography.where( id: photo.rank.members.reverse.slice( 0, 20 ) )
   end
 
