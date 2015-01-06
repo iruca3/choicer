@@ -1,6 +1,10 @@
 class PhotographiesController < ApplicationController
 
   def create
+    # ローカル用
+    redirect_to new_photography_path and return unless params['photography']
+    # リモート用
+    redirect_to new_photography_path and return if params['photography']['remote_image_url'] && photography_params['remote_image_url'].blank?
     @photo = Photography.new( photography_params )
     @photo.user_id = current_user.id
     @photo.save
@@ -85,7 +89,7 @@ class PhotographiesController < ApplicationController
       compare_info = session[:compare_info]
       session[:compare_info] += ( @choiced_photo.id == @target_new_photo.id ? 'o' : 'x' )
       bin_search = get_binary_search_user_photo
-      if bin_search[:finished] 
+      if bin_search[:finished]
         current_user.compare_list.insert( ( @choiced_photo.id == @target_new_photo.id ? 'before' : 'after' ), @compared_photo.id.to_s, @target_new_photo.id )
         session[:compare_info] = ''
         @info = '好みがより明確化しました。'
