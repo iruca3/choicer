@@ -1,13 +1,10 @@
 class PhotographiesController < ApplicationController
 
   def create
-    # ローカル用
-    redirect_to new_photography_path and return unless params['photography']
-    # リモート用
-    redirect_to new_photography_path and return if params['photography']['remote_image_url'] && photography_params['remote_image_url'].blank?
     @photo = Photography.new( photography_params )
     @photo.user_id = current_user.id
-    @photo.save
+    result = @photo.save
+    redirect_to new_photography_path unless result
   end
 
   def judge_form
@@ -126,7 +123,7 @@ class PhotographiesController < ApplicationController
   end
 
   def photography_params
-    params.require( :photography ).permit(
+    params.fetch( :photography, {} ).permit(
       :image, :remote_image_url
     )
   end
