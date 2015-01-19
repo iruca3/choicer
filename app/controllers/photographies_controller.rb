@@ -3,7 +3,8 @@ class PhotographiesController < ApplicationController
   def create
     @photo = Photography.new( photography_params )
     @photo.user_id = current_user.id
-    @photo.save
+    result = @photo.save
+    redirect_to new_photography_path unless result
   end
 
   def judge_form
@@ -85,7 +86,7 @@ class PhotographiesController < ApplicationController
       compare_info = session[:compare_info]
       session[:compare_info] += ( @choiced_photo.id == @target_new_photo.id ? 'o' : 'x' )
       bin_search = get_binary_search_user_photo
-      if bin_search[:finished] 
+      if bin_search[:finished]
         current_user.compare_list.insert( ( @choiced_photo.id == @target_new_photo.id ? 'before' : 'after' ), @compared_photo.id.to_s, @target_new_photo.id )
         session[:compare_info] = ''
         @info = '好みがより明確化しました。'
@@ -122,7 +123,7 @@ class PhotographiesController < ApplicationController
   end
 
   def photography_params
-    params.require( :photography ).permit(
+    params.fetch( :photography, {} ).permit(
       :image, :remote_image_url
     )
   end
